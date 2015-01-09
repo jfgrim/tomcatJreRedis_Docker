@@ -17,6 +17,4 @@ if [ -f ${WEBAPPS_HOME}/*war ]; then
    cd /
 fi
 
-/usr/bin/redis-server /etc/redis/redis.conf
-
 exec ${CATALINA_HOME}/bin/catalina.sh run

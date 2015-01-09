@@ -2,7 +2,7 @@ FROM tifayuki/java:7
 MAINTAINER jf Grimault
 
 RUN apt-get update && \
-    apt-get install -yq --no-install-recommends wget pwgen ca-certificates redis-server && \
+    apt-get install -yq --no-install-recommends wget pwgen ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -21,7 +21,6 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
 
 ADD create_tomcat_admin_user.sh /create_tomcat_admin_user.sh
 ADD run.sh /run.sh
-ADD redis.conf /etc/redis/redis.conf
 ADD setenv.sh ${CATALINA_HOME}/bin/
 RUN chmod +x /*.sh
 RUN chmod +x ${CATALINA_HOME}/bin/*.sh
