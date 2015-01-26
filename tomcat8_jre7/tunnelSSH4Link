@@ -1,0 +1,22 @@
+#!/usr/bin/expect -f
+##################################
+# tunnelSSH_Link 172.17.0.2 3306
+#################################
+
+set server [lindex $argv 0]
+set port [lindex $argv 1]
+set password bench
+set user sshuser
+
+set timeout 1
+spawn ssh ${user}@${server}
+expect "(yes/no)?"
+send -- "yes\r"
+send -- "^C\r"
+
+set timeout 2
+spawn ssh -L $port:$server:$port -N -f ${user}@${server}
+expect "*?assword:*"
+send -- "$password\r"
+send -- "\r"
+expect eof

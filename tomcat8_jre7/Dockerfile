@@ -1,8 +1,7 @@
 FROM tifayuki/java:7
-MAINTAINER jf Grimault
 
 RUN apt-get update && \
-    apt-get install -yq --no-install-recommends wget pwgen ca-certificates && \
+    apt-get install -yq --no-install-recommends wget pwgen ca-certificates openssh-client expect && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -20,11 +19,13 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
     mv apache-tomcat* tomcat
 
 ADD create_tomcat_admin_user.sh /create_tomcat_admin_user.sh
+ADD tunnelSSH4Link /tunnelSSH4Link
 ADD run.sh /run.sh
 ADD setenv.sh ${CATALINA_HOME}/bin/
+
 RUN chmod +x /*.sh
+RUN chmod +x /tunnelSSH4Link
 RUN chmod +x ${CATALINA_HOME}/bin/*.sh
-RUN alias ll='ls -la --color'
 
 EXPOSE 8080
 CMD ["/run.sh"]

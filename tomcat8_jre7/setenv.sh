@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #CLASSPATH
-if [ -f "${CONFIG_HOME}" ]; then CONFIG_HOME="/tmp/conf-pco"; fi
+if [ -f "${CONFIG_HOME}" ]; then CONFIG_HOME="/webapps/config"; fi
 CLASSPATH="${CONFIG_HOME}"
 
 #Option Tomcat

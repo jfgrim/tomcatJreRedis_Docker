@@ -1,0 +1,41 @@
+Usage simple
+
+docker run -d -v webappsFolder:webappsFolder -v propertiesFolder:propertiesFolder -p 8080:8080 jfgrimault/tomcat8jre7
+
+If you want to see the tomcat's log directly, you can change option "-ti" with "-d".
+
+IIf you push a WAR file in your host's folder Webapps declared in "webappsFolder" option, Tomcat start with your WAR. You can put properties file in your host's "propertiesFolder"
+
+_Usage Link with MRC (jfgrimault / mysqld-redis-couchbase in  https://registry.hub.docker.com/u/jfgrimault/mysqld-redis-couchbase/)_
+
+docker run -ti --dns=DNS_SERVER_IP --dns-search=domain.local --name=tomcat -v /data/webapps:/data/webapps --link MRC:MRC -v /tmp:/tmp -p 9080:8080 jfgrimault/tomcat8jre7
+When the container start, SSH's tunnel start with MYSQL, REDIS and COUCHBASE port in local. In this container, you'll accessed in mysql with your tomcat's application in localhost et port = 3306. It's the same for REDIS and Couchbase
+
+The first time that you run your container, a new user admin with all privileges will be created in Tomcat with a random password. To get the password, check the logs of the container by running:
+
+docker logs <CONTAINER_ID>
+You will see an output like the following:
+
+========================================================================
+You can now connect to this Tomcat server using:
+
+    admin:b1uKcRK3r6SF
+
+Please remember to change the above password as soon as possible!
+========================================================================
+In this case, b1uKcRK3r6SF is the password allocated to the admin user.
+
+You can now login to you admin console to configure your tomcat server:
+
+http://127.0.0.1:8080/manager/html
+http://127.0.0.1:8080/host-manager/html
+Setting a specific password for the admin account
+
+If you want to use a preset password instead of a random generated one, you can set the environment variable TOMCAT_PASS to your specific password when running the container:
+
+docker run -d -p 8080:8080 -e TOMCAT_PASS="mypass" jfgrimault / tomcat8jre7
+You can now test your deployment:
+
+http://127.0.0.1:8080/
+
+Done!
