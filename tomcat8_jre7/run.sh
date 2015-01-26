@@ -18,9 +18,12 @@ if [ -f ${WEBAPPS_HOME}/*war ]; then
 fi
 if [ ! -z ${MRC_PORT_3306_TCP_ADDR} ]; then
    pkill ssh
+   sleep 1
    ./tunnelSSH4Link ${MRC_PORT_3306_TCP_ADDR} ${MRC_PORT_3306_TCP_PORT}
    ./tunnelSSH4Link ${MRC_PORT_6379_TCP_ADDR} ${MRC_PORT_6379_TCP_PORT}
    ./tunnelSSH4Link ${MRC_PORT_8091_TCP_ADDR} ${MRC_PORT_8091_TCP_PORT}
    ./tunnelSSH4Link ${MRC_PORT_8092_TCP_ADDR} ${MRC_PORT_8092_TCP_PORT}
+   sleep 3
+  echo `ps aux |grep ssh |grep -v grep`
 fi
 exec ${CATALINA_HOME}/bin/catalina.sh run
