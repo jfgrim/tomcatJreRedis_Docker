@@ -1,4 +1,4 @@
-FROM tifayuki/java:7
+FROM java:8u45-jdk
 
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends wget pwgen ca-certificates openssh-client expect && \
@@ -6,7 +6,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ENV TOMCAT_MAJOR_VERSION 8
-ENV TOMCAT_MINOR_VERSION 8.0.11
+ENV TOMCAT_MINOR_VERSION 8.0.24
 ENV CATALINA_HOME /tomcat
 ENV WEBAPPS_HOME /data/webapps
 ENV CONFIG_HOME /tmp/conf-pco
